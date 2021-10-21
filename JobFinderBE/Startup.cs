@@ -1,7 +1,10 @@
+using JobFinderBE.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +31,14 @@ namespace JobFinderBE
         {
 
             services.AddControllers();
+            services.AddDbContext<JobFinderContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PayRollSystem")));
+            services.AddControllersWithViews(opt =>  // or AddMvc()
+            {
+                // remove formatter that turns nulls into 204 - No Content responses
+                // this formatter breaks Angular's Http response JSON parsing
+                opt.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
+            });
+            services.AddMvc();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JobFinderBE", Version = "v1" });
@@ -45,6 +56,8 @@ namespace JobFinderBE
             }
 
             app.UseHttpsRedirection();
+
+
 
             app.UseRouting();
 

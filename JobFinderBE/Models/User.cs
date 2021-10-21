@@ -23,7 +23,6 @@ namespace JobFinderBE.Models
         public int? Phonenumber { get; set; }
         public string Email { get; set; }
         public DateTime? Dob { get; set; }
-        public int? Education { get; set; }
         public int? CitizenIdentification { get; set; }
         public bool? Status { get; set; }
         public string Role { get; set; }

@@ -47,6 +47,22 @@ namespace JobFinderBE.Controllers
             return null;
         }
 
+        [HttpGet(template: "login")]
+        public String Get(String username, String password)
+        {
+            IEnumerable<User> users = userRepository.GetUsers();
+            foreach(User user in users)
+            {
+
+                if (user.UserName.Equals(username) && user.Password.Equals(password))
+                {
+                    return "Login Success";
+                }
+            }
+
+            return "Worng UserName Or Password";
+        }
+
         [HttpPost(template: "add")]
         public String Post([FromBody] User company)
         {

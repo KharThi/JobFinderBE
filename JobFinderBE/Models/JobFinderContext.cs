@@ -187,8 +187,6 @@ namespace JobFinderBE.Models
                     .HasColumnType("date")
                     .HasColumnName("DOB");
 
-                entity.Property(e => e.Education).HasColumnName("education");
-
                 entity.Property(e => e.Email)
                     .HasMaxLength(50)
                     .IsUnicode(false)
