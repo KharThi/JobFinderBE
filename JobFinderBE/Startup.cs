@@ -19,23 +19,29 @@ namespace JobFinderBE
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.AllowAnyOrigin()
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+                                  });
+            });
             services.AddControllers();
             services.AddDbContext<JobFinderContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PayRollSystem")));
             services.AddControllersWithViews(opt =>  // or AddMvc()
             {
-                // remove formatter that turns nulls into 204 - No Content responses
-                // this formatter breaks Angular's Http response JSON parsing
                 opt.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
             });
             services.AddMvc();
@@ -57,7 +63,13 @@ namespace JobFinderBE
 
             app.UseHttpsRedirection();
 
-
+            app.UseCors(MyAllowSpecificOrigins);
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "JobFinderBE v1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 

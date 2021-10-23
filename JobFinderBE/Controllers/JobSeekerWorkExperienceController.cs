@@ -24,11 +24,11 @@ namespace JobFinderBE.Controllers
             _jobFinderDBCotext = jobFinderContext;
         }
         [HttpGet(template: "get")]
-        public IEnumerable<JobSeekerWorkExperience> Get(int userID, int page, int pagesize)
+        public IEnumerable<JobSeekerWorkExperience> Get(int userID)
         {
             if(userID != 0)
             {
-                IEnumerable<JobSeekerWorkExperience> jobSeekerWorkExperiences = jobSeekerWorkExperienceRepository.GetJobSeekerWorkExperiences().Skip(page * pagesize).Take(pagesize)
+                IEnumerable<JobSeekerWorkExperience> jobSeekerWorkExperiences = jobSeekerWorkExperienceRepository.GetJobSeekerWorkExperiences()
                 .Where(s => s.UserId.Equals(userID));
                 if (jobSeekerWorkExperiences != null)
                 {
@@ -37,7 +37,7 @@ namespace JobFinderBE.Controllers
             }
             else
             {
-                IEnumerable<JobSeekerWorkExperience> jobSeekerWorkExperiences = jobSeekerWorkExperienceRepository.GetJobSeekerWorkExperiences().Skip(page * pagesize).Take(pagesize);
+                IEnumerable<JobSeekerWorkExperience> jobSeekerWorkExperiences = jobSeekerWorkExperienceRepository.GetJobSeekerWorkExperiences();
                 if (jobSeekerWorkExperiences != null)
                 {
                     return jobSeekerWorkExperiences;
@@ -48,7 +48,7 @@ namespace JobFinderBE.Controllers
         }
 
         [HttpGet(template: "find/{id}")]
-        public JobSeekerWorkExperience Get(int id)
+        public JobSeekerWorkExperience GetByID(int id)
         {
             JobSeekerWorkExperience jobSeekerWorkExperience = jobSeekerWorkExperienceRepository.GetJobSeekerWorkExperienceByID(id);
             if (jobSeekerWorkExperience != null)

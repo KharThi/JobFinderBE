@@ -24,10 +24,10 @@ namespace JobFinderBE.Controllers
             _jobFinderDBCotext = jobFinderContext;
         }
         [HttpGet(template: "get")]
-        public IEnumerable<User> Get(string name, int page, int pagesize)
+        public IEnumerable<User> Get(string name)
         {
             if (name == null) name = "";
-            IEnumerable<User> users = userRepository.GetUsers().Skip(page * pagesize).Take(pagesize)
+            IEnumerable<User> users = userRepository.GetUsers()
                 .Where(s => s.Fullname.Contains(name, StringComparison.OrdinalIgnoreCase));
             if (users != null)
             {

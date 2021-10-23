@@ -24,11 +24,11 @@ namespace JobFinderBE.Controllers
             _jobFinderDBCotext = jobFinderContext;
         }
         [HttpGet(template: "get")]
-        public IEnumerable<JobSeekerEducation> Get(int userID, int page, int pagesize)
+        public IEnumerable<JobSeekerEducation> Get(int userID)
         {
             if(userID != 0)
             {
-                IEnumerable<JobSeekerEducation> jobSeekerEducations = jobSeekerEducationRepository.GetJobSeekerEducations().Skip(page * pagesize).Take(pagesize)
+                IEnumerable<JobSeekerEducation> jobSeekerEducations = jobSeekerEducationRepository.GetJobSeekerEducations()
                 .Where(s => s.UserId.Equals(userID));
                 if (jobSeekerEducations != null)
                 {
@@ -37,7 +37,7 @@ namespace JobFinderBE.Controllers
             }
             else
             {
-                IEnumerable<JobSeekerEducation> jobSeekerEducations = jobSeekerEducationRepository.GetJobSeekerEducations().Skip(page * pagesize).Take(pagesize);
+                IEnumerable<JobSeekerEducation> jobSeekerEducations = jobSeekerEducationRepository.GetJobSeekerEducations();
                 if (jobSeekerEducations != null)
                 {
                     return jobSeekerEducations;
@@ -49,7 +49,7 @@ namespace JobFinderBE.Controllers
         }
 
         [HttpGet(template: "find/{id}")]
-        public JobSeekerEducation Get(int id)
+        public JobSeekerEducation GetByID(int id)
         {
             JobSeekerEducation jobSeekerEducation = jobSeekerEducationRepository.GetJobSeekerEducationByID(id);
             if (jobSeekerEducation != null)

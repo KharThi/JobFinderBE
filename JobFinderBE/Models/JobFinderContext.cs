@@ -17,6 +17,7 @@ namespace JobFinderBE.Models
         {
         }
 
+        public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<CovidPassport> CovidPassports { get; set; }
         public virtual DbSet<CovidTestPaper> CovidTestPapers { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
@@ -37,6 +38,25 @@ namespace JobFinderBE.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<Company>(entity =>
+            {
+                entity.ToTable("Company");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Location).HasColumnName("location");
+
+                entity.Property(e => e.Logo)
+                    .IsUnicode(false)
+                    .HasColumnName("logo");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
+            });
 
             modelBuilder.Entity<CovidPassport>(entity =>
             {
@@ -106,11 +126,15 @@ namespace JobFinderBE.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.CompanyId).HasColumnName("companyID");
+
                 entity.Property(e => e.Description)
                     .HasMaxLength(255)
                     .HasColumnName("description");
 
-                entity.Property(e => e.Experience).HasColumnName("experience");
+                entity.Property(e => e.Experience)
+                    .HasMaxLength(255)
+                    .HasColumnName("experience");
 
                 entity.Property(e => e.Location)
                     .IsRequired()
@@ -121,13 +145,25 @@ namespace JobFinderBE.Models
                     .HasMaxLength(255)
                     .HasColumnName("name");
 
-                entity.Property(e => e.Salary).HasColumnName("salary");
+                entity.Property(e => e.Salary)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("salary");
 
                 entity.Property(e => e.Skill)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .HasColumnName("skill");
 
-                entity.Property(e => e.Type).HasColumnName("type");
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("type");
+
+                entity.HasOne(d => d.Company)
+                    .WithMany(p => p.Jobs)
+                    .HasForeignKey(d => d.CompanyId)
+                    .HasConstraintName("FK_Job_Company");
             });
 
             modelBuilder.Entity<JobSeekerEducation>(entity =>

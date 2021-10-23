@@ -26,11 +26,11 @@ namespace JobFinderBE.Controllers
             _jobFinderDBCotext = jobFinderContext;
         }
         [HttpGet(template: "get")]
-        public IEnumerable<CovidTestPaper> Get(int userID, int page, int pagesize)
+        public IEnumerable<CovidTestPaper> Get(int userID)
         {
             if(userID != 0)
             {
-                IEnumerable<CovidTestPaper> covidTestPapers = covidTestPaperRepository.GetCovidTestPapers().Skip(page * pagesize).Take(pagesize)
+                IEnumerable<CovidTestPaper> covidTestPapers = covidTestPaperRepository.GetCovidTestPapers()
                 .Where(s => s.UserId.Equals(userID));
                 if (covidTestPapers != null)
                 {                  
@@ -39,7 +39,7 @@ namespace JobFinderBE.Controllers
             }
             else
             {
-                IEnumerable<CovidTestPaper> covidTestPapers = covidTestPaperRepository.GetCovidTestPapers().Skip(page * pagesize).Take(pagesize);
+                IEnumerable<CovidTestPaper> covidTestPapers = covidTestPaperRepository.GetCovidTestPapers();
                 if (covidTestPapers != null)
                 {
                     return covidTestPapers;
@@ -50,7 +50,7 @@ namespace JobFinderBE.Controllers
         }
 
         [HttpGet(template: "find/{id}")]
-        public CovidTestPaper Get(int id)
+        public CovidTestPaper GetByID(int id)
         {
             CovidTestPaper covidTestPaper = covidTestPaperRepository.GetCovidTestPaperByID(id);
             if (covidTestPaper != null)

@@ -14,67 +14,46 @@ namespace JobFinderBE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobController : ControllerBase
+    public class CompanyController : ControllerBase
     {
-        private IJobRepository jobRepository;
         private ICompanyRepository companyRepository;
         private readonly JobFinderContext _jobFinderDBCotext;
-        public JobController(JobFinderContext jobFinderContext)
+        public CompanyController(JobFinderContext jobFinderContext)
         {
-            this.jobRepository = new JobRepository(new JobFinderContext());
             this.companyRepository = new CompanyRepository(new JobFinderContext());
             _jobFinderDBCotext = jobFinderContext;
         }
         [HttpGet(template: "get")]
-        public IEnumerable<Job> Get(string name)
+        public IEnumerable<Company> Get(string name)
         {
             if (name == null) name = "";
-            IEnumerable<Job> jobs = jobRepository.GetJobs()
+            IEnumerable<Company> companys = companyRepository.GetCompanies()
                 .Where(s => s.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
-            if (jobs != null)
+            if (companys != null)
             {
-                foreach(Job job in jobs)
-                {
-                    job.Company = companyRepository.GetCompanyByID((int)job.CompanyId);
-                }
-                return jobs;
-            }
-            return null;
-        }
-
-        [HttpGet(template: "getall")]
-        public IEnumerable<Job> GetAll()
-        {
-            IEnumerable<Job> jobs = jobRepository.GetJobs();
-            if (jobs != null)
-            {
-                foreach (Job job in jobs)
-                {
-                    job.Company = companyRepository.GetCompanyByID((int)job.CompanyId);
-                }
-                return jobs;
+                return companys;
             }
             return null;
         }
 
         [HttpGet(template: "find/{id}")]
-        public Job Get(int id)
+        public Company Get(int id)
         {
-            Job job = jobRepository.GetJobByID(id);
-            if (job != null)
+            Company company = companyRepository.GetCompanyByID(id);
+            if (company != null)
             {
-                return job;
+                return company;
             }
             return null;
         }
 
         [HttpPost(template: "add")]
-        public String Post([FromBody] Job company)
+        public String Post([FromBody] Company company)
         {
             try
             {
-                jobRepository.InsertJob(company);
-                jobRepository.Save();
+                companyRepository.InsertCompany(company);
+                companyRepository.Save();
             }
             catch (Exception)
             {
@@ -83,13 +62,13 @@ namespace JobFinderBE.Controllers
             return "Add Success";
         }
 
-        // PUT api/<JobController>/5
+        // PUT api/<CompanyController>/5
         [HttpPut(template: "update")]
-        public String Put([FromBody] Job company)
+        public String Put([FromBody] Company company)
         {
             try
             {
-                jobRepository.UpdateJob(company);
+                companyRepository.UpdateCompany(company);
             }
             catch (DataException)
             {
@@ -101,11 +80,11 @@ namespace JobFinderBE.Controllers
         [HttpDelete(template: "delete/{id}")]
         public String Delete(int id)
         {
-            Job findJob = jobRepository.GetJobByID(id);
-            if (findJob != null)
+            Company findCompany = companyRepository.GetCompanyByID(id);
+            if (findCompany != null)
             {
-                jobRepository.DeleteJob(id);
-                jobRepository.Save();
+                companyRepository.DeleteCompany(id);
+                companyRepository.Save();
                 return "Delete Success";
             }
             return "Delete Failed";

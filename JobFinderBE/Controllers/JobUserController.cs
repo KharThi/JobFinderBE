@@ -28,11 +28,11 @@ namespace JobFinderBE.Controllers
             _jobFinderDBCotext = jobFinderContext;
         }
         [HttpGet(template: "get")]
-        public IEnumerable<UserJob> Get(int userID, int jobID, int page, int pagesize)
+        public IEnumerable<UserJob> Get(int userID, int jobID)
         {
             if(userID == 0 && jobID == 0)
             {
-                IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs().Skip(page * pagesize).Take(pagesize);
+                IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs();
                 if (userJobs != null)
                 {
                     foreach(UserJob userJob in userJobs)
@@ -45,7 +45,7 @@ namespace JobFinderBE.Controllers
             }
             else if(userID !=0 && jobID == 0)
             {
-                IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs().Skip(page * pagesize).Take(pagesize)
+                IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs()
                 .Where(s => s.UserId.Equals(userID));
                 if (userJobs != null)
                 {
@@ -58,7 +58,7 @@ namespace JobFinderBE.Controllers
                 }
             }else if(userID == 0 && jobID != 0)
             {
-                IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs().Skip(page * pagesize).Take(pagesize)
+                IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs()
                 .Where(s => s.JobId.Equals(jobID));
                 if (userJobs != null)
                 {
@@ -72,7 +72,7 @@ namespace JobFinderBE.Controllers
             }
             else
             {
-                IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs().Skip(page * pagesize).Take(pagesize)
+                IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs()
                 .Where(s => s.UserId.Equals(userID))
                 .Where(s => s.JobId.Equals(jobID));
                 if (userJobs != null)

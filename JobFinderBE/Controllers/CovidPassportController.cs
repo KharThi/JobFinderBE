@@ -26,11 +26,11 @@ namespace JobFinderBE.Controllers
             _jobFinderDBCotext = jobFinderContext;
         }
         [HttpGet(template: "get")]
-        public IEnumerable<CovidPassport> Get(int level, int userID, int page, int pagesize)
+        public IEnumerable<CovidPassport> Get(int level, int userID)
         {
             if(level == 0 && userID == 0)
             {
-                IEnumerable<CovidPassport> covidPassports = covidPassportRepository.GetCovidPassports().Skip(page * pagesize).Take(pagesize);
+                IEnumerable<CovidPassport> covidPassports = covidPassportRepository.GetCovidPassports();
                 if (covidPassports != null)
                 {
                     foreach(CovidPassport covidPassport in covidPassports)
@@ -41,7 +41,7 @@ namespace JobFinderBE.Controllers
                 }
             }else if(level != 0 && userID == 0)
             {
-                IEnumerable<CovidPassport> covidPassports = covidPassportRepository.GetCovidPassports().Skip(page * pagesize).Take(pagesize)
+                IEnumerable<CovidPassport> covidPassports = covidPassportRepository.GetCovidPassports()
                     .Where(s => s.Level.Equals(level));
                 if (covidPassports != null)
                 {
@@ -53,7 +53,7 @@ namespace JobFinderBE.Controllers
                 }
             }else if(level == 0 && userID != 0)
             {
-                IEnumerable<CovidPassport> covidPassports = covidPassportRepository.GetCovidPassports().Skip(page * pagesize).Take(pagesize)
+                IEnumerable<CovidPassport> covidPassports = covidPassportRepository.GetCovidPassports()
                     .Where(s => s.UserId.Equals(userID));
                 if (covidPassports != null)
                 {
@@ -66,7 +66,7 @@ namespace JobFinderBE.Controllers
             }
             else
             {
-                IEnumerable<CovidPassport> covidPassports = covidPassportRepository.GetCovidPassports().Skip(page * pagesize).Take(pagesize)
+                IEnumerable<CovidPassport> covidPassports = covidPassportRepository.GetCovidPassports()
                     .Where(s => s.UserId.Equals(userID))
                     .Where(s => s.Level.Equals(level));
                 if (covidPassports != null)
