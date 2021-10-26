@@ -47,6 +47,21 @@ namespace JobFinderBE.Controllers
             return null;
         }
 
+        [HttpGet(template: "getByUsername")]
+        public User GetByUsername(String username)
+        {
+            if(username == null)
+            {
+                return null;
+            }
+            IEnumerable<User> users = userRepository.GetUsers().Where(s=>s.UserName.Equals(username.ToString()));
+            if (users.Count() != 0)
+            {
+                return users.First();
+            }
+            return null;
+        }
+
         [HttpGet(template: "login")]
         public String Get(String username, String password)
         {
