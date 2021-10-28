@@ -10,9 +10,9 @@ namespace JobFinderBE.Repository
     public class UserRepository:IDisposable, IUserRepository
     {
         private JobFinderContext context;
-        public UserRepository(JobFinderContext context)
+        public UserRepository(JobFinderContext _context)
         {
-            this.context = context;
+            this.context = _context;
         }
 
         public void DeleteUser(int Id)
@@ -21,7 +21,6 @@ namespace JobFinderBE.Repository
             context.Users.Remove(user);
         }
         private bool disposed = false;
-        private JobFinderContext payrollSystemContext;
 
         protected virtual void Dispose(bool disposing)
         {
@@ -62,7 +61,6 @@ namespace JobFinderBE.Repository
 
         public void UpdateUser(User user)
         {
-            /*context.Entry(company).State = EntityState.Modified.;*/
             context.Users.Update(user);
             context.SaveChanges();
         }

@@ -16,6 +16,7 @@ namespace JobFinderBE.Models
         public string Name { get; set; }
         public string Location { get; set; }
         public string Logo { get; set; }
+        public string AboutCompany { get; set; }
 
         public virtual ICollection<Job> Jobs { get; set; }
     }

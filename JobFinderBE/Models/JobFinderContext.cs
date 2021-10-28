@@ -47,6 +47,8 @@ namespace JobFinderBE.Models
                     .ValueGeneratedNever()
                     .HasColumnName("id");
 
+                entity.Property(e => e.AboutCompany).HasColumnName("aboutCompany");
+
                 entity.Property(e => e.Location).HasColumnName("location");
 
                 entity.Property(e => e.Logo)
@@ -126,39 +128,71 @@ namespace JobFinderBE.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.CompanyId).HasColumnName("companyID");
-
-                entity.Property(e => e.Description)
-                    .HasMaxLength(255)
-                    .HasColumnName("description");
-
-                entity.Property(e => e.Experience)
-                    .HasMaxLength(255)
-                    .HasColumnName("experience");
-
-                entity.Property(e => e.Location)
+                entity.Property(e => e.City)
                     .IsRequired()
                     .HasMaxLength(255)
-                    .HasColumnName("location");
+                    .HasColumnName("city");
 
-                entity.Property(e => e.Name)
+                entity.Property(e => e.CompanyId).HasColumnName("companyID");
+
+                entity.Property(e => e.CovidPassport)
                     .HasMaxLength(255)
-                    .HasColumnName("name");
+                    .HasColumnName("covidPassport");
 
-                entity.Property(e => e.Salary)
+                entity.Property(e => e.Employee)
+                    .HasMaxLength(50)
+                    .HasColumnName("employee");
+
+                entity.Property(e => e.Image).HasColumnName("image");
+
+                entity.Property(e => e.JobName)
+                    .HasMaxLength(255)
+                    .HasColumnName("jobName");
+
+                entity.Property(e => e.JobOpportunity)
+                    .HasMaxLength(255)
+                    .HasColumnName("jobOpportunity");
+
+                entity.Property(e => e.JobResponsbilities).HasColumnName("jobResponsbilities");
+
+                entity.Property(e => e.MainCriteria)
+                    .HasMaxLength(255)
+                    .HasColumnName("mainCriteria");
+
+                entity.Property(e => e.SalaryDescription)
+                    .HasMaxLength(255)
+                    .HasColumnName("salaryDescription");
+
+                entity.Property(e => e.SalaryDetail)
+                    .HasMaxLength(255)
+                    .HasColumnName("salaryDetail");
+
+                entity.Property(e => e.Sallary)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false)
-                    .HasColumnName("salary");
+                    .HasColumnName("sallary");
 
-                entity.Property(e => e.Skill)
+                entity.Property(e => e.Tag)
                     .HasMaxLength(255)
-                    .HasColumnName("skill");
+                    .HasColumnName("tag");
 
                 entity.Property(e => e.Type)
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("type");
+
+                entity.Property(e => e.WorkingPlace)
+                    .HasMaxLength(255)
+                    .HasColumnName("workingPlace");
+
+                entity.Property(e => e.WorkingTime)
+                    .HasMaxLength(255)
+                    .HasColumnName("workingTime");
+
+                entity.Property(e => e.WorkingTimeDescription)
+                    .HasMaxLength(255)
+                    .HasColumnName("workingTimeDescription");
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.Jobs)

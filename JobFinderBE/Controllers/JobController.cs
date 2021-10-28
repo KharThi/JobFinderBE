@@ -30,7 +30,7 @@ namespace JobFinderBE.Controllers
         {
             if (name == null) name = "";
             IEnumerable<Job> jobs = jobRepository.GetJobs()
-                .Where(s => s.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+                .Where(s => s.Job1.Contains(name, StringComparison.OrdinalIgnoreCase));
             if (jobs != null)
             {
                 foreach(Job job in jobs)

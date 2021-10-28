@@ -86,9 +86,9 @@ namespace JobFinderBE.Controllers
                 userRepository.InsertUser(company);
                 userRepository.Save();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return "Add Failed";
+                return e.StackTrace;
             }
             return "Add Success";
         }
