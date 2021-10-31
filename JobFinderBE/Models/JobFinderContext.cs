@@ -207,7 +207,7 @@ namespace JobFinderBE.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Education)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .HasColumnName("education");
 
                 entity.Property(e => e.UserId).HasColumnName("userID");
@@ -224,11 +224,33 @@ namespace JobFinderBE.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Experience).HasColumnName("experience");
+                entity.Property(e => e.Company)
+                    .HasMaxLength(255)
+                    .HasColumnName("company");
+
+                entity.Property(e => e.EndDay)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("endDay");
+
+                entity.Property(e => e.Experience)
+                    .HasMaxLength(50)
+                    .HasColumnName("experience");
+
+                entity.Property(e => e.IsStillWorking).HasColumnName("isStillWorking");
+
+                entity.Property(e => e.Job)
+                    .HasMaxLength(255)
+                    .HasColumnName("job");
 
                 entity.Property(e => e.Skill)
                     .HasMaxLength(50)
                     .HasColumnName("skill");
+
+                entity.Property(e => e.StartDay)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("startDay");
 
                 entity.Property(e => e.UserId).HasColumnName("userId");
 
