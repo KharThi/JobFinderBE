@@ -210,6 +210,26 @@ namespace JobFinderBE.Models
                     .HasMaxLength(255)
                     .HasColumnName("education");
 
+                entity.Property(e => e.EndDay)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("endDay");
+
+                entity.Property(e => e.IsStillStudying).HasColumnName("isStillStudying");
+
+                entity.Property(e => e.Majors)
+                    .HasMaxLength(255)
+                    .HasColumnName("majors");
+
+                entity.Property(e => e.SchoolName)
+                    .HasMaxLength(255)
+                    .HasColumnName("schoolName");
+
+                entity.Property(e => e.StartDay)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("startDay");
+
                 entity.Property(e => e.UserId).HasColumnName("userID");
 
                 entity.HasOne(d => d.User)
