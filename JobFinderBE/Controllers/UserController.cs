@@ -71,7 +71,7 @@ namespace JobFinderBE.Controllers
 
                 if (user.UserName.Equals(username) && user.Password.Equals(password))
                 {
-                    return "Login Success";
+                    return user.UserName;
                 }
             }
 
