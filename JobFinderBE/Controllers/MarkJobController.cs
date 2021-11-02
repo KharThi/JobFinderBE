@@ -19,12 +19,14 @@ namespace JobFinderBE.Controllers
         private IMarkJobRepository markJobRepository;
         private IUserRepository userRepository;
         private IJobRepository jobRepository;
+        private ICompanyRepository companyRepository;
         private readonly JobFinderContext _jobFinderDBCotext;
         public MarkJobController(JobFinderContext jobFinderContext)
         {
             this.markJobRepository = new MarkJobRepository(new JobFinderContext());
             this.userRepository = new UserRepository(new JobFinderContext());
             this.jobRepository = new JobRepository(new JobFinderContext());
+            this.companyRepository = new CompanyRepository(new JobFinderContext());
             _jobFinderDBCotext = jobFinderContext;
         }
         [HttpGet(template: "get")]
@@ -39,6 +41,10 @@ namespace JobFinderBE.Controllers
                     {
                         markJob.User = userRepository.GetUserByID((int)markJob.UserId);
                         markJob.Job = jobRepository.GetJobByID((int)markJob.JobId);
+                        if(markJob.Job != null)
+                        {
+                            markJob.Job.Company = companyRepository.GetCompanyByID((int)markJob.Job.CompanyId);
+                        }
                     }
                     return markJobs;
                 }
@@ -52,6 +58,10 @@ namespace JobFinderBE.Controllers
                     {
                         markJob.User = userRepository.GetUserByID((int)markJob.UserId);
                         markJob.Job = jobRepository.GetJobByID((int)markJob.JobId);
+                        if (markJob.Job != null)
+                        {
+                            markJob.Job.Company = companyRepository.GetCompanyByID((int)markJob.Job.CompanyId);
+                        }
                     }
                     return markJobs;
                 }
@@ -65,6 +75,10 @@ namespace JobFinderBE.Controllers
                     {
                         markJob.User = userRepository.GetUserByID((int)markJob.UserId);
                         markJob.Job = jobRepository.GetJobByID((int)markJob.JobId);
+                        if (markJob.Job != null)
+                        {
+                            markJob.Job.Company = companyRepository.GetCompanyByID((int)markJob.Job.CompanyId);
+                        }
                     }
                     return markJobs;
                 }
@@ -80,6 +94,10 @@ namespace JobFinderBE.Controllers
                     {
                         markJob.User = userRepository.GetUserByID((int)markJob.UserId);
                         markJob.Job = jobRepository.GetJobByID((int)markJob.JobId);
+                        if (markJob.Job != null)
+                        {
+                            markJob.Job.Company = companyRepository.GetCompanyByID((int)markJob.Job.CompanyId);
+                        }
                     }
                     return markJobs;
                 }
@@ -96,6 +114,10 @@ namespace JobFinderBE.Controllers
             {
                 markJob.User = userRepository.GetUserByID((int)markJob.UserId);
                 markJob.Job = jobRepository.GetJobByID((int)markJob.JobId);
+                if (markJob.Job != null)
+                {
+                    markJob.Job.Company = companyRepository.GetCompanyByID((int)markJob.Job.CompanyId);
+                }
                 return markJob;
             }
             return null;
