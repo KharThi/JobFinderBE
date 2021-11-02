@@ -63,7 +63,7 @@ namespace JobFinderBE.Controllers
         }
 
         [HttpGet(template: "login")]
-        public String Get(String username, String password)
+        public User Get(String username, String password)
         {
             IEnumerable<User> users = userRepository.GetUsers();
             foreach(User user in users)
@@ -71,11 +71,11 @@ namespace JobFinderBE.Controllers
 
                 if (user.UserName.Equals(username) && user.Password.Equals(password))
                 {
-                    return "Login Success";
+                    return user;
                 }
             }
 
-            return "Worng UserName Or Password";
+            return null;
         }
 
         [HttpPost(template: "add")]

@@ -9,6 +9,7 @@ namespace JobFinderBE.Models
     {
         public Job()
         {
+            MarkJobs = new HashSet<MarkJob>();
             UserJobs = new HashSet<UserJob>();
         }
 
@@ -32,6 +33,7 @@ namespace JobFinderBE.Models
         public string JobName { get; set; }
 
         public virtual Company Company { get; set; }
+        public virtual ICollection<MarkJob> MarkJobs { get; set; }
         public virtual ICollection<UserJob> UserJobs { get; set; }
     }
 }

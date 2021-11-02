@@ -23,6 +23,7 @@ namespace JobFinderBE.Models
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<JobSeekerEducation> JobSeekerEducations { get; set; }
         public virtual DbSet<JobSeekerWorkExperience> JobSeekerWorkExperiences { get; set; }
+        public virtual DbSet<MarkJob> MarkJobs { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserJob> UserJobs { get; set; }
 
@@ -281,6 +282,27 @@ namespace JobFinderBE.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("acc_id");
+            });
+
+            modelBuilder.Entity<MarkJob>(entity =>
+            {
+                entity.ToTable("MarkJob");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.JobId).HasColumnName("jobID");
+
+                entity.Property(e => e.UserId).HasColumnName("userID");
+
+                entity.HasOne(d => d.Job)
+                    .WithMany(p => p.MarkJobs)
+                    .HasForeignKey(d => d.JobId)
+                    .HasConstraintName("FK_MarkJob_Job");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.MarkJobs)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_MarkJob_User");
             });
 
             modelBuilder.Entity<User>(entity =>
