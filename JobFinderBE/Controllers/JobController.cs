@@ -63,6 +63,7 @@ namespace JobFinderBE.Controllers
             Job job = jobRepository.GetJobByID(id);
             if (job != null)
             {
+                job.Company = companyRepository.GetCompanyByID((int)job.CompanyId);
                 return job;
             }
             return null;
