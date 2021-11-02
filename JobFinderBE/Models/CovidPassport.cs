@@ -9,8 +9,8 @@ namespace JobFinderBE.Models
     {
         public int Id { get; set; }
         public int? Level { get; set; }
-        public DateTime? _1stInjectionDate { get; set; }
-        public DateTime? _2stInjectionDate { get; set; }
+        public string _1stInjectionDate { get; set; }
+        public string _2stInjectionDate { get; set; }
         public string Image { get; set; }
         public string QrCode { get; set; }
         public int? UserId { get; set; }

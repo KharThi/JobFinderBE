@@ -81,11 +81,13 @@ namespace JobFinderBE.Models
                 entity.Property(e => e.UserId).HasColumnName("userID");
 
                 entity.Property(e => e._1stInjectionDate)
-                    .HasColumnType("datetime")
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
                     .HasColumnName("1stInjectionDate");
 
                 entity.Property(e => e._2stInjectionDate)
-                    .HasColumnType("datetime")
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
                     .HasColumnName("2stInjectionDate");
 
                 entity.HasOne(d => d.User)
