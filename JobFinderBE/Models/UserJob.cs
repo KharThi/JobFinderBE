@@ -9,7 +9,7 @@ namespace JobFinderBE.Models
     {
         public int? UserId { get; set; }
         public int? JobId { get; set; }
-        public DateTime? Date { get; set; }
+        public string Date { get; set; }
         public string Status { get; set; }
 
         public virtual Job Job { get; set; }

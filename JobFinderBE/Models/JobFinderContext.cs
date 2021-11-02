@@ -341,14 +341,14 @@ namespace JobFinderBE.Models
                 entity.ToTable("UserJob");
 
                 entity.Property(e => e.Date)
-                    .HasColumnType("datetime")
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
                     .HasColumnName("date");
 
                 entity.Property(e => e.JobId).HasColumnName("jobID");
 
                 entity.Property(e => e.Status)
-                    .HasMaxLength(20)
-                    .IsUnicode(false)
+                    .HasMaxLength(50)
                     .HasColumnName("status");
 
                 entity.Property(e => e.UserId).HasColumnName("userID");
