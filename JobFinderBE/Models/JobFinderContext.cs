@@ -338,9 +338,7 @@ namespace JobFinderBE.Models
             {
                 entity.ToTable("UserJob");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Date)
                     .HasMaxLength(50)

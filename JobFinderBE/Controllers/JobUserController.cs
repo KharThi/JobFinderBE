@@ -113,7 +113,7 @@ namespace JobFinderBE.Controllers
             }
             catch (Exception e)
             {
-                return "Add Failed";
+                return e.ToString();
             }
             return "Add Success";
         }
