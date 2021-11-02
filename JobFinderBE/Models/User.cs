@@ -13,6 +13,7 @@ namespace JobFinderBE.Models
             CovidTestPapers = new HashSet<CovidTestPaper>();
             JobSeekerEducations = new HashSet<JobSeekerEducation>();
             JobSeekerWorkExperiences = new HashSet<JobSeekerWorkExperience>();
+            UserJobs = new HashSet<UserJob>();
         }
 
         public int Id { get; set; }
@@ -33,5 +34,6 @@ namespace JobFinderBE.Models
         public virtual ICollection<CovidTestPaper> CovidTestPapers { get; set; }
         public virtual ICollection<JobSeekerEducation> JobSeekerEducations { get; set; }
         public virtual ICollection<JobSeekerWorkExperience> JobSeekerWorkExperiences { get; set; }
+        public virtual ICollection<UserJob> UserJobs { get; set; }
     }
 }

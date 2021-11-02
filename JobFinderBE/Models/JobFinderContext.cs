@@ -336,9 +336,11 @@ namespace JobFinderBE.Models
 
             modelBuilder.Entity<UserJob>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("UserJob");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
 
                 entity.Property(e => e.Date)
                     .HasMaxLength(50)
@@ -354,12 +356,12 @@ namespace JobFinderBE.Models
                 entity.Property(e => e.UserId).HasColumnName("userID");
 
                 entity.HasOne(d => d.Job)
-                    .WithMany()
+                    .WithMany(p => p.UserJobs)
                     .HasForeignKey(d => d.JobId)
                     .HasConstraintName("FK_UserJob_Job");
 
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.UserJobs)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_User_Job_User");
             });

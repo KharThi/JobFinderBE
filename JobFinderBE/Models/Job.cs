@@ -7,6 +7,11 @@ namespace JobFinderBE.Models
 {
     public partial class Job
     {
+        public Job()
+        {
+            UserJobs = new HashSet<UserJob>();
+        }
+
         public int Id { get; set; }
         public string Type { get; set; }
         public string City { get; set; }
@@ -27,5 +32,6 @@ namespace JobFinderBE.Models
         public string JobName { get; set; }
 
         public virtual Company Company { get; set; }
+        public virtual ICollection<UserJob> UserJobs { get; set; }
     }
 }

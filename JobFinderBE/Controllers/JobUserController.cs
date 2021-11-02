@@ -111,7 +111,7 @@ namespace JobFinderBE.Controllers
                 userJobRepository.InsertUserJob(company);
                 userJobRepository.Save();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return "Add Failed";
             }
