@@ -32,7 +32,7 @@ namespace JobFinderBE.Controllers
         {
             if(userID == 0 && jobID == 0)
             {
-                IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs();
+                IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs().OrderByDescending(s=>s.Id);
                 if (userJobs != null)
                 {
                     foreach(UserJob userJob in userJobs)
@@ -46,7 +46,7 @@ namespace JobFinderBE.Controllers
             else if(userID !=0 && jobID == 0)
             {
                 IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs()
-                .Where(s => s.UserId.Equals(userID));
+                .Where(s => s.UserId.Equals(userID)).OrderByDescending(s => s.Id);
                 if (userJobs != null)
                 {
                     foreach (UserJob userJob in userJobs)
@@ -59,7 +59,7 @@ namespace JobFinderBE.Controllers
             }else if(userID == 0 && jobID != 0)
             {
                 IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs()
-                .Where(s => s.JobId.Equals(jobID));
+                .Where(s => s.JobId.Equals(jobID)).OrderByDescending(s => s.Id);
                 if (userJobs != null)
                 {
                     foreach (UserJob userJob in userJobs)
@@ -74,7 +74,7 @@ namespace JobFinderBE.Controllers
             {
                 IEnumerable<UserJob> userJobs = userJobRepository.GetUserJobs()
                 .Where(s => s.UserId.Equals(userID))
-                .Where(s => s.JobId.Equals(jobID));
+                .Where(s => s.JobId.Equals(jobID)).OrderByDescending(s => s.Id);
                 if (userJobs != null)
                 {
                     foreach (UserJob userJob in userJobs)

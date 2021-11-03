@@ -34,7 +34,7 @@ namespace JobFinderBE.Controllers
         {
             if(userID ==0 && jobID == 0)
             {
-                IEnumerable<MarkJob> markJobs = markJobRepository.GetMarkJobs();
+                IEnumerable<MarkJob> markJobs = markJobRepository.GetMarkJobs().OrderByDescending(s => s.Id);
                 if (markJobs != null)
                 {
                     foreach( MarkJob markJob in markJobs)
@@ -51,7 +51,7 @@ namespace JobFinderBE.Controllers
             }else if(userID != 0 && jobID == 0)
             {
                 IEnumerable<MarkJob> markJobs = markJobRepository.GetMarkJobs()
-                    .Where(s =>s.UserId.Equals(userID));
+                    .Where(s =>s.UserId.Equals(userID)).OrderByDescending(s => s.Id);
                 if (markJobs != null)
                 {
                     foreach (MarkJob markJob in markJobs)
@@ -68,7 +68,7 @@ namespace JobFinderBE.Controllers
             }else if(userID ==0 & jobID != 0)
             {
                 IEnumerable<MarkJob> markJobs = markJobRepository.GetMarkJobs()
-                                    .Where(s => s.JobId.Equals(jobID));
+                                    .Where(s => s.JobId.Equals(jobID)).OrderByDescending(s => s.Id);
                 if (markJobs != null)
                 {
                     foreach (MarkJob markJob in markJobs)
@@ -87,7 +87,7 @@ namespace JobFinderBE.Controllers
             {
                 IEnumerable<MarkJob> markJobs = markJobRepository.GetMarkJobs()
                                     .Where(s => s.JobId.Equals(jobID))
-                                    .Where(s => s.UserId.Equals(userID));
+                                    .Where(s => s.UserId.Equals(userID)).OrderByDescending(s => s.Id);
                 if (markJobs != null)
                 {
                     foreach (MarkJob markJob in markJobs)
