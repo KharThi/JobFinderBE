@@ -128,12 +128,20 @@ namespace JobFinderBE.Controllers
         {
             try
             {
+                IEnumerable<MarkJob> markJobs = markJobRepository.GetMarkJobs();
+                foreach(MarkJob markJob in markJobs)
+                {
+                    if (markJob.UserId == company.UserId && markJob.JobId == company.JobId)
+                    {
+                        return "Already exits";
+                    }
+                }
                 markJobRepository.InsertMarkJob(company);
                 markJobRepository.Save();
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return e.ToString();
+                return "Add Failed";
             }
             return "Add Success";
         }
